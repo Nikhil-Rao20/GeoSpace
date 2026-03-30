@@ -1,4 +1,5 @@
-# SVAMITVA — Multi-Class Semantic Segmentation of Drone Orthophotos
+# GeoSpace: Automated Rural Feature Extraction from Drone Imagery using Deep Learning
+Team: Nikhileswara Rao Sulake, Sai Manikanta Eswar Machara, 
 
 > **MoPR Hackathon — Problem Statement 1**
 > Pixel-level land-use classification from SVAMITVA drone survey orthophotos using SegFormer-B2.
@@ -111,107 +112,6 @@ To verify spatial correctness, patches are reconstructed back into a mosaic usin
   <img src="docs/readme_assets/building_overlay.png" width="60%" alt="Building Overlay"/>
 </p>
 <p align="center"><em>Building footprint annotations (Channel 0) overlaid in red on reconstructed patches.</em></p>
-
----
-
-## Repository Structure
-
-```
-.
-├── README.md
-├── .gitignore
-│
-├── scripts/
-│   ├── data_preprocessing.py      # Main preprocessing pipeline
-│   ├── phase1_validation.py       # Data validation & sanity checks
-│   ├── reprocess_fix.py           # CG village reprocessing (bug fix)
-│   ├── reprocess_swapped.py       # Mis-filed village reprocessing
-│   ├── reconstruct_patches.py     # Single-village reconstruction demo
-│   ├── reconstruct_all.py         # All-village reconstruction
-│   └── create_split.py            # Train/val split generator
-│
-├── docs/
-│   ├── readme_assets/             # Optimized images for this README
-│   ├── preprocessing_summary.md   # Full preprocessing documentation
-│   ├── phase1_report.md           # Phase 1 validation report
-│   ├── phase1_5_report.md         # Bug fix & reprocessing report
-│   ├── phase1_visuals/            # Per-village sample patch visualizations
-│   └── patch_reconstruction/      # SAMLUR reconstruction demo plots
-│
-├── patch_reconstruction/          # Reconstruction outputs for all 9 villages
-│   └── {village}_{state}_{grid}_{patches}/
-│       ├── orthophoto_original.png
-│       ├── reconstructed.png
-│       └── patch_coverage_map.png
-│
-├── preprocessed_dataset/          # [.gitignore] 41 GB
-│   ├── images/                    # 15,695 image patches (512×512 GeoTIFF)
-│   ├── masks/                     # 15,695 mask patches (9-ch uint8 GeoTIFF)
-│   ├── train.txt                  # 12,552 training patches
-│   └── val.txt                    # 3,143 validation patches
-│
-├── Training/                      # [.gitignore] Raw orthophotos + shapefiles
-│   ├── PB_Training/
-│   └── CG_Training/
-│
-└── Testing/                       # [.gitignore] Test orthophotos
-```
-
----
-
-## Bugs Found & Fixed
-
-During Phase 1 validation, **6 critical bugs** were discovered and fixed:
-
-| # | Bug | Impact | Fix |
-|:-:|-----|--------|-----|
-| 1 | Both shapefile groups pointed to PB | CG villages had 0% Building annotations | Folder-based auto-detection |
-| 2 | Hardcoded `idx < 5` group assignment | Wrong state mapping after any file addition | Eliminated — auto-maps from training dir |
-| 3 | Building shapefile name mismatch | CG: `Built_Up_Area_type` vs PB: `Built_Up_Area_typ` | Fallback file detection |
-| 4 | Utility_Poly name mismatch | CG: `Utility_Poly` vs PB: `Utility_Poly_` | Fallback file detection |
-| 5 | Stale `ORTHO_FOLDER` path | No .tif files found in root | Iterates training subdirs |
-| 6 | Two villages mis-filed | PINDORI (PB) in CG folder, BADETUMNAR (CG) in PB folder | `SHP_OVERRIDES` dict |
-
-See [docs/preprocessing_summary.md](docs/preprocessing_summary.md) for full details.
-
----
-
-## Quick Start
-
-### Prerequisites
-
-```bash
-pip install rasterio geopandas numpy tqdm matplotlib pillow
-```
-
-### Run Preprocessing
-
-```bash
-cd scripts/
-python data_preprocessing.py
-```
-
-### Generate Train/Val Split
-
-```bash
-python scripts/create_split.py
-```
-
-### Reconstruct Patches for Verification
-
-```bash
-python scripts/reconstruct_all.py
-```
-
----
-
-## Documentation
-
-| Document | Description |
-|----------|-------------|
-| [Preprocessing Summary](docs/preprocessing_summary.md) | Complete pipeline documentation, bugs, and patch accounting |
-| [Phase 1 Report](docs/phase1_report.md) | Data validation, class distributions, corrupt patch analysis |
-| [Phase 1.5 Report](docs/phase1_5_report.md) | Bug fix changelog and reprocessing results |
 
 ---
 
