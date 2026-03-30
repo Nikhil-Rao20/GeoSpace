@@ -12,7 +12,7 @@ src/
 testing_outputs/
 testing_outputs_main/
 testing_outputs_main_optim/
-
+**/__pycache__/
 # ECW source raster (~188 MB)
 CG_451189_ecw/
 
