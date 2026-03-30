@@ -1,0 +1,68 @@
+# ──────────────────────────────────────────────────
+# Data — large binary files, not for version control
+# ──────────────────────────────────────────────────
+
+# Raw orthophotos and shapefiles (~18 GB each)
+Training/
+Testing/
+
+# ECW source raster (~188 MB)
+CG_451189_ecw/
+
+# Model checkpoints (many files exceed GitHub 100MB limit)
+checkpoints/
+checkpoints_correct/
+checkpoints_eswar/
+
+# Preprocessed 512×512 patches (~41 GB)
+preprocessed_dataset/images/
+preprocessed_dataset/masks/
+
+# Keep split files (small text)
+!preprocessed_dataset/train.txt
+!preprocessed_dataset/val.txt
+
+# Zip archives
+*.zip
+
+# ──────────────────────────────────────────────────
+# Python
+# ──────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+*.so
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# ──────────────────────────────────────────────────
+# Jupyter
+# ──────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb
+
+# ──────────────────────────────────────────────────
+# OS / IDE
+# ──────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ──────────────────────────────────────────────────
+# Misc large / temp files
+# ──────────────────────────────────────────────────
+*.tif
+*.ecw
+*.lock
