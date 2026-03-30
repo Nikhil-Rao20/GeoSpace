@@ -5,6 +5,13 @@
 # Raw orthophotos and shapefiles (~18 GB each)
 Training/
 Testing/
+logs/
+logs_eswar/
+preprocessed_dataset/
+src/
+testing_outputs/
+testing_outputs_main/
+testing_outputs_main_optim/
 
 # ECW source raster (~188 MB)
 CG_451189_ecw/
